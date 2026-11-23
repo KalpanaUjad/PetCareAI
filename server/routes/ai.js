@@ -40,7 +40,19 @@ router.get("/models/:provider", async (req, res) => {
       }
     });
 
-    const data = await response.json();
+    const rawResponse = await response.text();
+
+let data;
+
+try {
+  data = JSON.parse(rawResponse);
+} catch (error) {
+  console.error("AI Provider returned non-JSON response:", rawResponse);
+
+  return res.status(502).json({
+    error: "AI provider returned an invalid response. Check Railway logs."
+  });
+}
 
     if (!response.ok) {
       return res.status(response.status).json({
@@ -112,7 +124,19 @@ router.post("/chat", async (req, res) => {
       }
     );
 
-    const data = await response.json();
+    const rawResponse = await response.text();
+
+let data;
+
+try {
+  data = JSON.parse(rawResponse);
+} catch (error) {
+  console.error("AI Provider returned non-JSON response:", rawResponse);
+
+  return res.status(502).json({
+    error: "AI provider returned an invalid response. Check Railway logs."
+  });
+}
 
     if (!response.ok) {
       return res.status(response.status).json({
