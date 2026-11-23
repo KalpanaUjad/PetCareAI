@@ -1,0 +1,10 @@
+
+{
+  "name": "petcare-ai",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "npm --prefix server install && npm --prefix client install && npm --prefix client run build",
+    "start": "node server/server.js"
+  }
+}
